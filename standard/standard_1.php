@@ -44,7 +44,7 @@ function strtolower(string $string): string {}
  * the beginning of the string. Unlike {@see strrpos()} and {@see strripos()}, the offset cannot be negative.
  * </p>
  * @return int<0,max>|false <p>
- * Returns the position where the needle exists relative to the beginnning of
+ * Returns the position where the needle exists relative to the beginning of
  * the <b>haystack</b> string (independent of search direction
  * or offset).
  * Also note that string positions start at 0, and not 1.
@@ -499,7 +499,7 @@ function strcoll(string $string1, string $string2): int {}
 function money_format(string $format, float $number): ?string {}
 
 /**
- * Return part of a string
+ * Return part of a string or false on failure. For PHP8.0+ only string is returned
  * @link https://php.net/manual/en/function.substr.php
  * @param string $string <p>
  * The input string.
@@ -559,7 +559,6 @@ function money_format(string $format, float $number): ?string {}
  * $rest = substr("abcdef", -3, -1); // returns "de"
  * ?>
  * </pre>
- * @return string|false the extracted part of string or false on failure.
  */
 #[Pure]
 #[LanguageLevelTypeAware(["8.0" => "string"], default: "string|false")]

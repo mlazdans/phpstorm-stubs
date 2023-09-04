@@ -156,8 +156,8 @@ class Directory
  * @param string $name <p>
  * The constant name.
  * </p>
- * @return mixed the value of the constant, or null if the constant is not
- * defined.
+ * @return mixed the value of the constant.
+ * @throws Error If the constant is not defined
  */
 #[Pure(true)]
 function constant(string $name): mixed {}
@@ -189,7 +189,7 @@ function sleep(int $seconds) {}
 /**
  * Delay execution in microseconds
  * @link https://php.net/manual/en/function.usleep.php
- * @param int $microseconds <p>
+ * @param int<0,max> $microseconds <p>
  * Halt time in micro seconds. A micro second is one millionth of a
  * second.
  * </p>

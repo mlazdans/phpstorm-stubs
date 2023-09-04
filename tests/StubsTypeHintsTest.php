@@ -6,6 +6,7 @@ namespace StubTests;
 use PHPUnit\Framework\Exception;
 use RuntimeException;
 use StubTests\Model\PHPClass;
+use StubTests\Model\PHPEnum;
 use StubTests\Model\PHPFunction;
 use StubTests\Model\PHPInterface;
 use StubTests\Model\PHPMethod;
@@ -85,7 +86,9 @@ class StubsTypeHintsTest extends AbstractBaseStubsTestCase
     public function testMethodsReturnTypeHints(PHPClass|PHPInterface $class, PHPMethod $method)
     {
         $functionName = $method->name;
-        if ($class instanceof PHPClass) {
+        if ($class instanceof PHPEnum) {
+            $stubMethod = PhpStormStubsSingleton::getPhpStormStubs()->getEnum($class->name)->getMethod($method->name);
+        } elseif ($class instanceof PHPClass) {
             $stubMethod = PhpStormStubsSingleton::getPhpStormStubs()->getClass($class->name)->getMethod($functionName);
         } else {
             $stubMethod = PhpStormStubsSingleton::getPhpStormStubs()->getInterface($class->name)->getMethod($functionName);
@@ -208,8 +211,8 @@ class StubsTypeHintsTest extends AbstractBaseStubsTestCase
                 }
             }
 
-            // replace array notations like int[] or array<string,mixed> to match the array type
-            return preg_replace(['/\w+\[]/', '/array<[a-z,\s]+>/'], 'array', $typeName);
+            // replace array notations like int[] or array<string,mixed> or array{name:type} to match the array type
+            return preg_replace(['/\w+\[]/', '/array[{<][a-z,\s:|_]+[>}]/'], 'array', $typeName);
         }, $method->returnTypesFromPhpDoc);
         $unifiedSignatureTypes = array_map(function (string $type) {
             $typeParts = explode('\\', $type);
@@ -225,13 +228,12 @@ class StubsTypeHintsTest extends AbstractBaseStubsTestCase
             $unifiedSignatureTypes[] = $typeName;
         }
         $typesIntersection = array_intersect($unifiedSignatureTypes, $unifiedPhpDocTypes);
+        $name = $method instanceof PHPMethod ? "Method $method->parentName::" : 'Function ';
         self::assertSameSize(
             $unifiedSignatureTypes,
             $typesIntersection,
-            $method instanceof PHPMethod ? "Method $method->parentName::" : 'Function ' .
-                "$functionName has mismatch in phpdoc return type and signature return type\n
-                signature has " . implode('|', $unifiedSignatureTypes) . "\n
-                but phpdoc has " . implode('|', $unifiedPhpDocTypes)
+            $name . "$functionName has mismatch in phpdoc return type and signature return type. 
+            Signature has " . implode('|', $unifiedSignatureTypes) . " but phpdoc has " . implode('|', $unifiedPhpDocTypes)
         );
     }
 

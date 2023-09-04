@@ -1120,6 +1120,17 @@ define('CURLINFO_HEADER_OUT', 2);
  * @since 5.2.4
  */
 define('CURLINFO_PRIVATE', 1048597);
+
+/**
+ * @since 8.3
+ */
+define('CURLINFO_CAPATH', 1048638);
+
+/**
+ * @since 8.3
+ */
+define('CURLINFO_CAINFO', 1048637);
+
 /**
  * Supports IPv6
  * @link https://php.net/manual/en/curl.constants.php
@@ -1151,6 +1162,37 @@ define('CURLVERSION_NOW', 10);
  * @link https://curl.haxx.se/libcurl/c/libcurl-errors.html
  */
 define('CURLE_OK', 0);
+
+/**
+ * @since 8.3
+ */
+define('CURLKHMATCH_OK', 0);
+
+/**
+ * @since 8.3
+ */
+define('CURLKHMATCH_MISMATCH', 1);
+
+/**
+ * @since 8.3
+ */
+define('CURLKHMATCH_MISSING', 2);
+
+/**
+ * @since 8.3
+ */
+define('CURLKHMATCH_LAST', 3);
+
+/**
+ * @since 8.3
+ */
+define('CURLOPT_MIME_OPTIONS', 315);
+
+/**
+ * @since 8.3
+ */
+define('CURLMIMEOPT_FORMESCAPE', 1);
+
 /**
  * The URL you passed to libcurl used a protocol that this libcurl does not support.
  * The support might be a compile-time option that you didn't use,
@@ -2062,6 +2104,41 @@ define('CURLOPT_PROXY_SERVICE_NAME', 10235);
 define('CURLOPT_SERVICE_NAME', 10236);
 
 /**
+ * @since 8.3
+ */
+define('CURLOPT_SSH_HOSTKEYFUNCTION', 20316);
+
+/**
+ * @since 8.3
+ */
+define('CURLOPT_PROTOCOLS_STR', 10318);
+
+/**
+ * @since 8.3
+ */
+define('CURLOPT_REDIR_PROTOCOLS_STR', 10319);
+
+/**
+ * @since 8.3
+ */
+define('CURLOPT_WS_OPTIONS', 320);
+
+/**
+ * @since 8.3
+ */
+define('CURLWS_RAW_MODE', 1);
+
+/**
+ * @since 8.3
+ */
+define('CURLOPT_CA_CACHE_TIMEOUT', 321);
+
+/**
+ * @since 8.3
+ */
+define('CURLOPT_QUICK_EXIT', 322);
+
+/**
  * Value for the <b>CURLOPT_SSH_AUTH_TYPES</b> option.
  * libcurl attempts to connect to ssh-agent or pageant and let the agent attempt the authentication.
  * @link https://php.net/manual/en/curl.constants.php
@@ -2272,7 +2349,7 @@ define('CURL_PUSH_DENY', 1);
  * @link https://php.net/manual/en/curl.constants.php
  * @since 7.0.7
  */
-define('CURL_MAX_READ_SIZE', 524288);
+define('CURL_MAX_READ_SIZE', 10485760);
 
 /**
  * Enables the use of an abstract Unix domain socket instead of establishing a TCP connection to a host and sets the path to the given string.
@@ -2973,7 +3050,7 @@ define("CURLE_SSL_PINNEDPUBKEYNOTMATCH", 90);
 /**
  * @link https://php.net/manual/en/curl.constants.php
  */
-define("CURLINFO_LASTONE", 62);
+define("CURLINFO_LASTONE", 64);
 /**
  * An easy handle already added to a multi handle was attempted to get added a second time.
  * @link https://www.php.net/manual/en/function.curl-multi-exec.php
